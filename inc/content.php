@@ -51,20 +51,34 @@ add_filter( 'the_content', function ( $content ) {
 
 /* ---------- 目录 ---------- */
 /**
- * 给 h2/h3 加 id，并返回目录数组。
+ * 给标题加 id，并返回目录数组。
+ * 文章用到的标题级别里，最高的一级当主标题、下一级当子标题（H1–H4 都行），
+ * 并加上 moji-h-main / moji-h-sub 类，保证不同写法的文章层级样式一致。
  *
- * @return array [ 处理后的 HTML, [ [level, id, text], ... ] ]
+ * @return array [ 处理后的 HTML, [ [level(2|3), id, text], ... ] ]
  */
 function moji_toc_process( $html ) {
-	$toc  = array();
+	$toc = array();
+	if ( ! preg_match_all( '#<h([1-4])\b#i', $html, $lv ) ) {
+		return array( $html, $toc );
+	}
+	$levels = array_values( array_unique( array_map( 'intval', $lv[1] ) ) );
+	sort( $levels );
+	$main = $levels[0];
+	$sub  = isset( $levels[1] ) ? $levels[1] : 0;
+	$pick = $sub ? $main . $sub : (string) $main;
 	$used = array();
+	if ( preg_match_all( '/\sid=["\']([^"\']+)["\']/', $html, $ids ) ) {
+		$used = array_fill_keys( $ids[1], true ); // 先占住文中已有的 id，避免生成重复
+	}
 	$n    = 0;
-	$html = preg_replace_callback( '#<h([23])([^>]*)>(.*?)</h\1>#is', function ( $m ) use ( &$toc, &$used, &$n ) {
+	$html = preg_replace_callback( '#<h([' . $pick . '])([^>]*)>(.*?)</h\1>#is', function ( $m ) use ( &$toc, &$used, &$n, $main ) {
 		$attrs = $m[2];
 		$text  = trim( wp_strip_all_tags( $m[3] ) );
 		if ( '' === $text ) {
 			return $m[0];
 		}
+		$is_main = (int) $m[1] === $main;
 		if ( preg_match( '/\sid=["\']([^"\']+)["\']/', $attrs, $idm ) ) {
 			$id = $idm[1];
 		} else {
@@ -74,8 +88,14 @@ function moji_toc_process( $html ) {
 			}
 			$attrs .= ' id="' . $id . '"';
 		}
+		$cls = $is_main ? 'moji-h-main' : 'moji-h-sub';
+		if ( preg_match( '/\sclass=(["\'])(.*?)\1/', $attrs ) ) {
+			$attrs = preg_replace( '/\sclass=(["\'])(.*?)\1/', ' class=$1$2 ' . $cls . '$1', $attrs, 1 );
+		} else {
+			$attrs .= ' class="' . $cls . '"';
+		}
 		$used[ $id ] = true;
-		$toc[]       = array( (int) $m[1], $id, $text );
+		$toc[]       = array( $is_main ? 2 : 3, $id, $text );
 		return '<h' . $m[1] . $attrs . '>' . $m[3] . '</h' . $m[1] . '>';
 	}, $html );
 	return array( $html, $toc );

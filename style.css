@@ -1,7 +1,7 @@
 /*
 Theme Name: 墨记 Moji Notes
 Description: 手账贴纸风的笔记博客主题：专题配色、笔记成熟度、自动目录、[[双链]]与反向链接、写作打卡、即时搜索、深色模式。
-Version: 1.1.1
+Version: 1.1.2
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -227,10 +227,11 @@ a.sticky-note:hover{box-shadow:8px 8px 0 var(--shadow)}
 /* 正文排版 */
 .prose{max-width:720px;font-size:16.5px;line-height:1.9;overflow-wrap:break-word}
 .prose>*:first-child{margin-top:0}
-.prose h2{font:32px/1.25 var(--f-display);font-weight:400;margin:46px 0 14px;scroll-margin-top:110px;display:flex;align-items:center;gap:12px}
-.prose h2::before{content:"";width:14px;height:14px;flex-shrink:0;background:var(--c,var(--coral));border:2px solid var(--line);border-radius:4px;transform:rotate(45deg)}
-.prose h3{font:700 19px/1.5 var(--f-body);margin:30px 0 8px;scroll-margin-top:110px}
-.prose h4{font:700 17px/1.5 var(--f-body);margin:24px 0 6px}
+.prose h1,.prose h2,.prose .moji-h-main{font:32px/1.25 var(--f-display);font-weight:400;margin:46px 0 14px;scroll-margin-top:110px;display:flex;align-items:center;gap:12px}
+.prose h1::before,.prose h2::before,.prose .moji-h-main::before{content:"";width:14px;height:14px;flex-shrink:0;background:var(--c,var(--coral));border:2px solid var(--line);border-radius:4px;transform:rotate(45deg)}
+.prose h3,.prose h2.moji-h-sub,.prose h1.moji-h-sub,.prose h4.moji-h-sub{display:block;font:700 19px/1.5 var(--f-body);margin:30px 0 8px;scroll-margin-top:110px}
+.prose h4{font:700 17px/1.5 var(--f-body);margin:24px 0 6px;scroll-margin-top:110px}
+.prose .moji-h-sub::before{display:none}
 .prose p{margin:14px 0}
 .prose mark{background:var(--sun);color:var(--on);padding:1px 5px;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .prose a{color:var(--fg);font-weight:600;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--sky) 70%,transparent) 62%)}
