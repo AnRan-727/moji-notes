@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MOJI_VER', '1.0.5' );
+define( 'MOJI_VER', '1.0.6' );
 define( 'MOJI_DIR', get_template_directory() );
 define( 'MOJI_URI', get_template_directory_uri() );
 

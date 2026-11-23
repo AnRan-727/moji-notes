@@ -22,7 +22,7 @@ $moji_tags  = get_the_tags();
 		<p><?php echo esc_html( moji_excerpt( 110 ) ); ?></p>
 		<div class="meta">
 			<?php if ( $moji_tags ) : foreach ( array_slice( $moji_tags, 0, 3 ) as $moji_t ) : ?><span class="tag"><?php echo esc_html( $moji_t->name ); ?></span><?php endforeach; endif; ?>
-			<span class="rt"><?php echo esc_html( get_the_date( 'm-d' ) ); ?> · <?php echo (int) moji_read_minutes(); ?> 分钟</span>
+			<span class="rt"><?php echo esc_html( get_the_date( 'm-d' ) ); ?> · <?php echo moji_locked() ? '需要密码' : (int) moji_read_minutes() . ' 分钟'; ?></span>
 		</div>
 	</div>
 <?php else : ?>
@@ -33,7 +33,7 @@ $moji_tags  = get_the_tags();
 		<div class="meta">
 			<?php moji_stage_badge(); ?>
 			<?php if ( $moji_tags ) : ?><span class="tag"><?php echo esc_html( $moji_tags[0]->name ); ?></span><?php endif; ?>
-			<span class="rt"><?php echo (int) moji_read_minutes(); ?> 分钟</span>
+			<span class="rt"><?php echo moji_locked() ? '需要密码' : (int) moji_read_minutes() . ' 分钟'; ?></span>
 		</div>
 	</div>
 <?php endif; ?>

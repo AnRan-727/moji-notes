@@ -42,6 +42,7 @@ function moji_rest_search( WP_REST_Request $req ) {
 		'post_status'         => 'publish',
 		'posts_per_page'      => 8,
 		'ignore_sticky_posts' => true,
+		'moji_hide_locked'    => true,
 	) );
 	$posts = array();
 	foreach ( $query->posts as $p ) {
@@ -49,7 +50,7 @@ function moji_rest_search( WP_REST_Request $req ) {
 		$posts[] = array(
 			'title'   => html_entity_decode( get_the_title( $p ), ENT_QUOTES, 'UTF-8' ),
 			'url'     => get_permalink( $p ),
-			'snippet' => moji_snippet( $p->post_content, $q ),
+			'snippet' => moji_locked( $p ) ? '这篇笔记设了密码' : moji_snippet( $p->post_content, $q ),
 			'color'   => moji_post_color( $p ),
 			'stage'   => $labels[ $stage ],
 			'date'    => get_the_date( 'm-d', $p ),
@@ -81,3 +82,20 @@ function moji_rest_search( WP_REST_Request $req ) {
 		'searchUrl' => get_search_link( $q ),
 	);
 }
+
+/**
+ * 搜索时，有密码的文章只按标题匹配，不让正文里的词把它搜出来。
+ */
+add_filter( 'posts_search', function ( $search, $query ) {
+	if ( '' === $search || ! ( $query->get( 'moji_hide_locked' ) || ( ! is_admin() && $query->is_main_query() && $query->is_search() ) ) ) {
+		return $search;
+	}
+	global $wpdb;
+	$terms = (array) $query->get( 'search_terms' );
+	$title = array();
+	foreach ( $terms as $t ) {
+		$title[] = $wpdb->prepare( "{$wpdb->posts}.post_title LIKE %s", '%' . $wpdb->esc_like( $t ) . '%' );
+	}
+	$title = $title ? implode( ' AND ', $title ) : '0=1';
+	return $search . " AND ( {$wpdb->posts}.post_password = '' OR ( {$title} ) )";
+}, 10, 2 );

@@ -159,10 +159,19 @@ function moji_mb_cut( $text, $len ) {
 	return $text;
 }
 
+/** 有密码且当前访客没输入过密码 */
+function moji_locked( $post = null ) {
+	$post = get_post( $post );
+	return $post && post_password_required( $post );
+}
+
 function moji_excerpt( $len = 90, $post = null ) {
 	$post = get_post( $post );
 	if ( ! $post ) {
 		return '';
+	}
+	if ( moji_locked( $post ) ) {
+		return '这篇笔记设了密码，输入密码后才能查看。';
 	}
 	if ( has_excerpt( $post ) ) {
 		return moji_mb_cut( wp_strip_all_tags( $post->post_excerpt ), $len );
