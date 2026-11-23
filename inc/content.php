@@ -106,3 +106,21 @@ function moji_backlinks( $post_id, $limit = 8 ) {
 	set_transient( $key, $ids, 12 * HOUR_IN_SECONDS );
 	return $ids;
 }
+
+/* ---------- 站外图片不发送来源，绕过图床防盗链（如 CSDN） ---------- */
+add_filter( 'the_content', function ( $content ) {
+	if ( false === strpos( $content, '<img' ) ) {
+		return $content;
+	}
+	$home = wp_parse_url( home_url(), PHP_URL_HOST );
+	return preg_replace_callback( '/<img\b[^>]*>/i', function ( $m ) use ( $home ) {
+		$tag = $m[0];
+		if ( stripos( $tag, 'referrerpolicy=' ) !== false || ! preg_match( '/\ssrc=["\'](https?:)?\/\/([^\/"\']+)/i', $tag, $src ) ) {
+			return $tag;
+		}
+		if ( strcasecmp( $src[2], $home ) === 0 ) {
+			return $tag;
+		}
+		return preg_replace( '/^<img\b/i', '<img referrerpolicy="no-referrer"', $tag );
+	}, $content );
+}, 20 );
