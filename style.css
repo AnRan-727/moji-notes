@@ -1,7 +1,7 @@
 /*
 Theme Name: 墨记 Moji Notes
 Description: 手账贴纸风的笔记博客主题：专题配色、笔记成熟度、自动目录、[[双链]]与反向链接、写作打卡、即时搜索、深色模式。
-Version: 1.1.0
+Version: 1.1.1
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -193,9 +193,9 @@ a.sticky-note:hover{box-shadow:8px 8px 0 var(--shadow)}
 .admin-bar .toc{top:142px}
 .toc h4{margin:0 0 12px;font:26px var(--f-display);font-weight:400}
 .toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
-.toc a{display:block;padding:6px 10px;border-radius:9px;font-size:14px;font-weight:600;color:var(--muted);border:2px solid transparent;line-height:1.45}
+.toc:not(.side) a{display:block;padding:6px 10px;border-radius:9px;font-size:14px;font-weight:600;color:var(--muted);border:2px solid transparent;line-height:1.45}
 .toc li.sub a{padding-left:24px;font-weight:500;font-size:13.5px}
-.toc a:hover{color:var(--fg);border-color:var(--line)}
+.toc:not(.side) a:hover{color:var(--fg);border-color:var(--line)}
 .toc a.on{background:var(--c,var(--coral));color:var(--on);border-color:var(--line)}
 .toc .prog{margin-top:18px;font:600 12px var(--f-mono);color:var(--muted);display:flex;justify-content:space-between}
 .toc .track{height:12px;border:2px solid var(--line);border-radius:99px;margin-top:6px;overflow:hidden;background:var(--paper-2)}
@@ -205,7 +205,7 @@ a.sticky-note:hover{box-shadow:8px 8px 0 var(--shadow)}
 .side-stick{position:sticky;top:110px;display:flex;flex-direction:column;gap:20px}
 .admin-bar .side-stick{top:142px}
 .side-prog .prog{margin-top:0}
-.toc.side>.card{padding:18px 18px 20px}
+.toc.side .card{padding:18px 18px 20px}
 .toc.side h4{margin:0 0 12px;font:24px var(--f-display);font-weight:400}
 .side-info dl{margin:0;display:flex;flex-direction:column;gap:9px}
 .side-info dl>div{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13.5px}
