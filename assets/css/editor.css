@@ -1,0 +1,20 @@
+/* 编辑器内预览：让提示框、代码、表格和前台长得一样 */
+body{font-family:"Bricolage Grotesque",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;font-size:16.5px;line-height:1.9;color:#262832}
+h1,h2{font-family:"ZCOOL QingKe HuangYou","PingFang SC",sans-serif;font-weight:400}
+h3,h4{font-weight:700}
+code{font-family:"JetBrains Mono",Menlo,monospace;font-size:.86em;background:#f6f7fb;border:1.5px solid #33353f;border-radius:6px;padding:1px 6px}
+pre,.wp-block-code{background:#262832;color:#e8eaf2;border:2px solid #33353f;border-radius:14px;padding:16px 18px;font:13.5px/1.75 "JetBrains Mono",Menlo,monospace}
+pre code,.wp-block-code code{background:none;border:0;padding:0;color:inherit}
+mark{background:#f7dc85;padding:1px 4px;border-radius:4px}
+blockquote,.wp-block-quote{border:2px dashed #33353f;border-radius:14px;padding:14px 20px;margin:24px 0}
+.wp-block-table table{border-collapse:collapse}
+.wp-block-table th,.wp-block-table thead td{background:#c8b6f4}
+.wp-block-table td,.wp-block-table th{border:1.5px solid #33353f;padding:8px 12px}
+.is-style-moji-tip,.is-style-moji-warn{border:2px solid #33353f;border-radius:14px;padding:14px 18px 14px 60px;position:relative}
+.is-style-moji-tip{background:#eaf5fc}
+.is-style-moji-warn{background:#fdeee9}
+.is-style-moji-tip::before,.is-style-moji-warn::before{position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:9px;border:2px solid #33353f;display:grid;place-items:center;font-weight:700;line-height:1}
+.is-style-moji-tip::before{content:"i";background:#95cff0}
+.is-style-moji-warn::before{content:"!";background:#f6a693}
+.is-style-moji-tldr{background:#8ad8bb;border:2px solid #33353f;border-radius:14px;padding:18px 22px;box-shadow:4px 4px 0 #33353f}
+.is-style-moji-tldr::before{content:"结论先行";display:block;font-family:"ZCOOL QingKe HuangYou",sans-serif;font-size:22px;margin-bottom:4px}
