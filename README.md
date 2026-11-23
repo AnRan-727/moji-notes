@@ -8,7 +8,7 @@
 
 ## 安装
 
-点仓库页面的 **Code → Download ZIP** 下载，把解压出来的文件夹改名为 `moji-notes` 再重新压缩成 `moji-notes.zip`，然后在后台 **外观 → 主题 → 安装主题 → 上传主题** 上传并启用。
+在 [Releases](https://github.com/AnRan-727/moji-notes/releases/latest) 下载 `moji-notes.zip`（不要用 Source code 压缩包），然后在后台 **外观 → 主题 → 安装主题 → 上传主题** 上传并启用。
 
 也可以直接在服务器上：
 
