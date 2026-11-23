@@ -124,3 +124,27 @@ add_filter( 'the_content', function ( $content ) {
 		return preg_replace( '/^<img\b/i', '<img referrerpolicy="no-referrer"', $tag );
 	}, $content );
 }, 20 );
+
+/* ---------- 密码保护：便签风格的输入框 ---------- */
+add_filter( 'the_password_form', function ( $output, $post = null ) {
+	$post  = get_post( $post );
+	$id    = 'pwbox-' . ( $post ? $post->ID : wp_rand() );
+	$wrong = $post && isset( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ); // 已经输过但还是没通过
+	ob_start();
+	?>
+<form class="moji-lock<?php echo $wrong ? ' is-wrong' : ''; ?>" action="<?php echo esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ); ?>" method="post">
+	<span class="tape" aria-hidden="true"></span>
+	<span class="lock-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.6" r="1.3" fill="currentColor"/></svg></span>
+	<p class="lock-title">这篇笔记上了锁</p>
+	<p class="lock-desc">内容只给知道密码的人看，输入密码后就能打开。</p>
+	<div class="lock-row">
+		<label class="screen-reader-text" for="<?php echo esc_attr( $id ); ?>">密码</label>
+		<input name="post_password" id="<?php echo esc_attr( $id ); ?>" type="password" placeholder="输入密码" autocomplete="current-password" required spellcheck="false">
+		<button type="submit" class="btn pri">解锁</button>
+	</div>
+	<?php if ( $wrong ) : ?><p class="lock-err" role="alert">密码不对，再试一次</p><?php endif; ?>
+	<span class="lock-hand" aria-hidden="true">嘘，悄悄看</span>
+</form>
+	<?php
+	return ob_get_clean();
+}, 10, 2 );
