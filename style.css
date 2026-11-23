@@ -1,7 +1,7 @@
 /*
 Theme Name: 墨记 Moji Notes
 Description: 手账贴纸风的笔记博客主题：专题配色、笔记成熟度、自动目录、[[双链]]与反向链接、写作打卡、即时搜索、深色模式。
-Version: 1.0.2
+Version: 1.0.3
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -177,7 +177,9 @@ a.sticky-note:hover{box-shadow:8px 8px 0 var(--shadow)}
 /* ---------- 文章页 ---------- */
 .post-hero{position:relative;padding:34px 36px 30px;background:var(--c);color:var(--on);overflow:hidden;margin-top:16px}
 .crumb{font:600 13px var(--f-body);display:flex;gap:8px;flex-wrap:wrap;opacity:.85;position:relative}
-.post-hero h1{font:clamp(34px,4.8vw,58px)/1.15 var(--f-display);font-weight:400;margin:14px 0 18px;max-width:15em;position:relative;overflow-wrap:anywhere}
+.post-hero h1{font:clamp(34px,4.8vw,58px)/1.15 var(--f-display);font-weight:400;margin:14px 0 18px;max-width:15em;position:relative;overflow-wrap:break-word;word-break:break-word}
+.post-hero h1.t-l{font-size:clamp(30px,3.8vw,46px);max-width:18em}
+.post-hero h1.t-xl{font-size:clamp(26px,3vw,36px);max-width:24em;line-height:1.25}
 .post-hero .meta{display:flex;flex-wrap:wrap;gap:8px;position:relative}
 .post-hero .meta .chip{background:var(--paper);color:var(--fg)}
 .post-hero .deco{position:absolute;right:-30px;top:-30px;width:220px;height:220px;border:2px solid var(--line);border-radius:50%;background:var(--sun)}
@@ -186,7 +188,9 @@ a.sticky-note:hover{box-shadow:8px 8px 0 var(--shadow)}
 .post-cover{margin:24px 0 0;border:2px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:5px 5px 0 var(--shadow)}
 .post-cover img{display:block;width:100%}
 .post-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:30px;margin-top:30px}
-.post-layout.no-toc{grid-template-columns:minmax(0,1fr)}
+.post-layout.no-toc{grid-template-columns:minmax(0,880px);justify-content:center}
+.post-layout.no-toc .article{padding-inline:56px}
+.post-layout.no-toc .prose,.post-layout.no-toc .post-foot{max-width:none}
 .article{padding:40px 48px;min-width:0}
 .toc{position:sticky;top:110px;align-self:start;padding:20px 20px 22px;max-height:calc(100vh - 130px);overflow-y:auto}
 .admin-bar .toc{top:142px}
@@ -225,8 +229,13 @@ a.sticky-note:hover{box-shadow:8px 8px 0 var(--shadow)}
 .prose blockquote cite{display:block;font-size:13px;color:var(--muted);font-style:normal;margin-top:6px}
 .prose img{border-radius:10px}
 .prose figure{margin:24px 0}
+.prose .img-lost{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:120px;padding:18px;border:2px dashed var(--line);border-radius:12px;background:var(--paper-2);color:var(--muted);text-align:center}
+.prose .img-lost b{font:22px var(--f-display);font-weight:400;color:var(--fg)}
+.prose .img-lost small{font:12px var(--f-mono)}
 .prose figcaption,.prose .wp-element-caption{font-size:13px;color:var(--muted);text-align:center;margin-top:8px}
-.prose .wp-block-image img{border:2px solid var(--line);box-shadow:4px 4px 0 var(--shadow)}
+.prose .wp-block-image img{border:2px solid var(--line);box-shadow:4px 4px 0 var(--shadow);border-radius:12px}
+.prose .wp-block-image{margin:22px 0}
+.prose .wp-block-image.size-large img,.prose .wp-block-image.size-full img{max-width:100%}
 .prose hr,.prose .wp-block-separator{border:0;border-top:2px dashed var(--line);margin:36px 0}
 .prose pre{margin:24px 0;padding:16px 18px;border:2px solid var(--line);border-radius:var(--r);background:var(--code-bg);color:var(--code-fg);overflow-x:auto;font:13.5px/1.75 var(--f-mono);box-shadow:4px 4px 0 var(--shadow)}
 .code{margin:24px 0;border:2px solid var(--line);border-radius:var(--r);background:var(--code-bg);color:var(--code-fg);overflow:hidden;box-shadow:4px 4px 0 var(--shadow)}
@@ -449,6 +458,7 @@ a.sticky-note:hover{box-shadow:8px 8px 0 var(--shadow)}
   .note.big .art{width:100%;min-height:130px;border-right:0;border-bottom:2px solid var(--line)}
   .note.big .art span{font-size:90px}
   .article,.page-card,.comments{padding:26px 20px}
+  .post-layout.no-toc .article{padding-inline:20px}
   .post-hero{padding:26px 22px}
   .post-hero .note-hand{display:none}
   .year{grid-template-columns:minmax(0,1fr);gap:16px;padding:22px 18px}

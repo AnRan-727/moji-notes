@@ -14,6 +14,8 @@ while ( have_posts() ) :
 	list( $moji_content, $moji_toc ) = moji_toc_process( $moji_content );
 	$moji_has_toc = count( $moji_toc ) >= 2;
 	$moji_modified = get_the_modified_date( 'Y-m-d' ) !== get_the_date( 'Y-m-d' );
+	$moji_tlen     = function_exists( 'mb_strlen' ) ? mb_strlen( wp_strip_all_tags( get_the_title() ) ) : strlen( get_the_title() );
+	$moji_tclass   = $moji_tlen > 60 ? ' t-xl' : ( $moji_tlen > 28 ? ' t-l' : '' );
 	?>
 <div class="c-<?php echo esc_attr( $moji_color ); ?>">
 	<header class="post-hero card">
@@ -23,7 +25,7 @@ while ( have_posts() ) :
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">笔记</a>
 			<?php if ( $moji_topic ) : ?>/<a href="<?php echo esc_url( get_category_link( $moji_topic ) ); ?>"><?php echo esc_html( $moji_topic->name ); ?></a><?php endif; ?>
 		</nav>
-		<h1><?php the_title(); ?></h1>
+		<h1 class="<?php echo esc_attr( trim( $moji_tclass ) ); ?>"><?php the_title(); ?></h1>
 		<div class="meta">
 			<?php moji_stage_badge(); ?>
 			<span class="chip">创建 <time class="mono" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date( 'Y-m-d' ) ); ?></time></span>

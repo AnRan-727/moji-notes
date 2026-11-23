@@ -51,6 +51,24 @@
 		});
 	});
 
+	/* ---------- 失效图片：显示提示框而不是空白 ---------- */
+	function markLost(img) {
+		if (img.getAttribute('data-lost')) return;
+		img.setAttribute('data-lost', '1');
+		var box = document.createElement('span');
+		box.className = 'img-lost';
+		var host = '';
+		try { host = new URL(img.currentSrc || img.src, location.href).host; } catch (e) {}
+		box.innerHTML = '<b>图片加载失败</b><small></small>';
+		box.querySelector('small').textContent = host ? '原图在 ' + host + ' 上已经找不到了' : '原图已经找不到了';
+		img.style.display = 'none';
+		img.parentNode.insertBefore(box, img.nextSibling);
+	}
+	$$('.prose img').forEach(function (img) {
+		if (img.complete && img.naturalWidth === 0 && img.src) markLost(img);
+		else img.addEventListener('error', function () { markLost(img); });
+	});
+
 	/* ---------- 代码块：加标题栏和复制按钮 ---------- */
 	$$('.prose pre').forEach(function (pre) {
 		if (pre.parentNode.classList.contains('code')) return;
