@@ -38,7 +38,7 @@ while ( have_posts() ) :
 		<figure class="post-cover"><?php the_post_thumbnail( 'full' ); ?></figure>
 	<?php endif; ?>
 
-	<div class="post-layout<?php echo $moji_has_toc ? '' : ' no-toc'; ?>">
+	<div class="post-layout">
 		<article id="post-<?php the_ID(); ?>" <?php post_class( 'card article' ); ?>>
 			<?php if ( $moji_has_toc ) : ?>
 				<details class="toc-mobile"><summary>目录</summary><ol>
@@ -93,6 +93,8 @@ while ( have_posts() ) :
 				<div class="prog"><span>阅读进度</span><span id="toc-pct">0%</span></div>
 				<div class="track"><i id="toc-bar"></i></div>
 			</aside>
+		<?php else : ?>
+			<?php get_template_part( 'template-parts/post-side', null, array( 'topic' => $moji_topic ) ); ?>
 		<?php endif; ?>
 	</div>
 

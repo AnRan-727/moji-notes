@@ -89,6 +89,19 @@
 		btn.addEventListener('click', function () { copyText(pre.innerText, btn, '复制'); });
 	});
 
+	/* ---------- 侧栏：复制链接、回到顶部 ---------- */
+	$$('[data-copy-link]').forEach(function (b) {
+		b.addEventListener('click', function () {
+			var url = b.getAttribute('data-copy-link'), old = b.textContent;
+			var done = function () { b.textContent = '已复制 ✓'; b.classList.add('ok'); setTimeout(function () { b.textContent = old; b.classList.remove('ok'); }, 1600); };
+			if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { window.prompt('复制这个链接', url); });
+			else window.prompt('复制这个链接', url);
+		});
+	});
+	$$('[data-to-top]').forEach(function (b) {
+		b.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+	});
+
 	/* ---------- 目录高亮与阅读进度 ---------- */
 	var toc = $('#toc'), prose = $('#prose');
 	if (toc && prose) {
