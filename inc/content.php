@@ -146,5 +146,5 @@ add_filter( 'the_password_form', function ( $output, $post = null ) {
 	<span class="lock-hand" aria-hidden="true">嘘，悄悄看</span>
 </form>
 	<?php
-	return ob_get_clean();
+	return trim( preg_replace( '/>\s+</', '><', ob_get_clean() ) ); // 去掉换行，免得 wpautop 插入空段落
 }, 10, 2 );
