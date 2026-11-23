@@ -1,7 +1,7 @@
 /*
 Theme Name: 墨记 Moji Notes
 Description: 手账贴纸风的笔记博客主题：专题配色、笔记成熟度、自动目录、[[双链]]与反向链接、写作打卡、即时搜索、深色模式。
-Version: 1.0.3
+Version: 1.0.4
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -249,7 +249,9 @@ a.sticky-note:hover{box-shadow:8px 8px 0 var(--shadow)}
 .prose .wp-block-table,.prose .tbl{overflow-x:auto;margin:24px 0;border:2px solid var(--line);border-radius:var(--r)}
 .prose .wp-block-table table,.prose .tbl table{min-width:480px;margin:0}
 .prose>table{display:block;overflow-x:auto;border:2px solid var(--line);border-radius:var(--r);margin:24px 0}
-.prose th,.prose td{text-align:left;padding:10px 14px;border:0;border-bottom:1.5px solid var(--line)}
+.prose table,.prose table.has-fixed-layout{table-layout:auto}
+.prose th,.prose td{text-align:left;vertical-align:top;padding:10px 14px;border:0;border-bottom:1.5px solid var(--line);overflow-wrap:break-word;word-break:normal}
+.prose td:first-child{white-space:nowrap}
 .prose tr:last-child td{border-bottom:0}
 .prose th,.prose thead td{background:var(--lilac);color:var(--on);font-weight:700;font-size:13.5px}
 .prose tbody tr:nth-child(even){background:var(--paper-2)}
