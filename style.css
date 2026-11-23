@@ -1,7 +1,7 @@
 /*
 Theme Name: 墨记 Moji Notes
 Description: 手账贴纸风的笔记博客主题：专题配色、笔记成熟度、自动目录、[[双链]]与反向链接、写作打卡、即时搜索、深色模式。
-Version: 1.0.7
+Version: 1.0.8
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -247,7 +247,7 @@ a.sticky-note:hover{box-shadow:8px 8px 0 var(--shadow)}
 .moji-lock.is-wrong .lock-row{animation:moji-shake .4s}
 .moji-lock .lock-hand{position:absolute;right:-12px;bottom:-16px;padding:2px 12px;background:var(--pink);border:2px solid var(--line);border-radius:8px;font:18px var(--f-hand);color:var(--on);transform:rotate(-6deg)}
 @keyframes moji-shake{25%{transform:translateX(-6px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
-@media (max-width:600px){.moji-lock{padding:40px 20px 28px;transform:none}.moji-lock .lock-row{flex-direction:column}.moji-lock .btn{justify-content:center}.moji-lock .lock-hand{right:8px}}
+@media (max-width:600px){.moji-lock{padding:40px 20px 28px;transform:none}.moji-lock .lock-row{flex-direction:column}.moji-lock input[type=password]{flex:none;width:100%}.moji-lock .btn{justify-content:center}.moji-lock .lock-hand{right:8px}}
 @media (prefers-reduced-motion:reduce){.moji-lock.is-wrong .lock-row{animation:none}}
 .prose figcaption,.prose .wp-element-caption{font-size:13px;color:var(--muted);text-align:center;margin-top:8px}
 .prose .wp-block-image img{border:2px solid var(--line);box-shadow:4px 4px 0 var(--shadow);border-radius:12px}
