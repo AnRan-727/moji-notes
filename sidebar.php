@@ -43,6 +43,17 @@ $moji_about = get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' 
 	</section>
 	<?php endif; ?>
 
+	<?php $moji_hot = moji_hot_posts( 5 ); if ( $moji_hot ) : ?>
+	<section class="card widget">
+		<h4>大家在看</h4>
+		<ol class="cats hot">
+			<?php foreach ( $moji_hot as $moji_i => $moji_hid ) : ?>
+				<li><a class="c-<?php echo esc_attr( moji_post_color( $moji_hid ) ); ?>" href="<?php echo esc_url( get_permalink( $moji_hid ) ); ?>"><i><?php echo (int) $moji_i + 1; ?></i><em><?php echo esc_html( get_the_title( $moji_hid ) ); ?></em><span><?php echo esc_html( moji_views_label( $moji_hid ) ); ?></span></a></li>
+			<?php endforeach; ?>
+		</ol>
+	</section>
+	<?php endif; ?>
+
 	<?php if ( moji_mod( 'moji_memo_text' ) ) : ?>
 	<section class="card memo">
 		<h4><?php echo esc_html( moji_mod( 'moji_memo_title' ) ); ?></h4>

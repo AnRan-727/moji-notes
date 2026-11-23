@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MOJI_VER', '1.1.2' );
+define( 'MOJI_VER', '1.2.0' );
 define( 'MOJI_DIR', get_template_directory() );
 define( 'MOJI_URI', get_template_directory_uri() );
 
@@ -15,6 +15,7 @@ require MOJI_DIR . '/inc/meta.php';
 require MOJI_DIR . '/inc/content.php';
 require MOJI_DIR . '/inc/customizer.php';
 require MOJI_DIR . '/inc/search.php';
+require MOJI_DIR . '/inc/views.php';
 
 /* ---------- 主题基础 ---------- */
 add_action( 'after_setup_theme', function () {
@@ -82,6 +83,8 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_localize_script( 'moji', 'MOJI', array(
 		'searchApi' => esc_url_raw( rest_url( 'moji/v1/search' ) ),
 		'searchUrl' => esc_url_raw( home_url( '/' ) ),
+		'viewApi'   => is_singular( 'post' ) && ! is_user_logged_in() ? esc_url_raw( rest_url( 'moji/v1/view/' . get_queried_object_id() ) ) : '',
+		'postId'    => is_singular( 'post' ) ? get_queried_object_id() : 0,
 	) );
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

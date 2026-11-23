@@ -89,6 +89,19 @@
 		btn.addEventListener('click', function () { copyText(pre.innerText, btn, '复制'); });
 	});
 
+	/* ---------- 浏览量：同一浏览器 6 小时内只算一次 ---------- */
+	(function () {
+		var cfg = window.MOJI || {};
+		if (!cfg.viewApi || !window.fetch) return;
+		var k = 'moji-v-' + cfg.postId, now = Date.now();
+		try { if (now - (+localStorage.getItem(k) || 0) < 6 * 3600 * 1000) return; localStorage.setItem(k, String(now)); } catch (e) {}
+		fetch(cfg.viewApi, { method: 'POST', credentials: 'omit' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+			if (!d || !d.counted) return;
+			var n = d.views, s = n >= 10000 ? (Math.round(n / 1000) / 10) + '万' : n.toLocaleString('en-US');
+			$$('[data-views]').forEach(function (el) { el.textContent = s; });
+		}).catch(function () {});
+	})();
+
 	/* ---------- 侧栏：复制链接、回到顶部 ---------- */
 	$$('[data-copy-link]').forEach(function (b) {
 		b.addEventListener('click', function () {

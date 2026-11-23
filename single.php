@@ -30,7 +30,8 @@ while ( have_posts() ) :
 			<?php moji_stage_badge(); ?>
 			<span class="chip">创建 <time class="mono" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date( 'Y-m-d' ) ); ?></time></span>
 			<?php if ( $moji_modified ) : ?><span class="chip">第 <?php echo (int) moji_version(); ?> 版 · <span class="mono"><?php echo esc_html( get_the_modified_date( 'm-d' ) ); ?></span></span><?php endif; ?>
-			<?php if ( moji_locked() ) : ?><span class="chip">需要密码</span><?php else : ?><span class="chip"><span class="mono"><?php echo esc_html( number_format_i18n( moji_word_count() ) ); ?></span> 字 · <?php echo (int) moji_read_minutes(); ?> 分钟</span><?php endif; ?>
+			<span class="chip"><span class="mono" data-views><?php echo esc_html( moji_views_label() ); ?></span> 次浏览</span>
+				<?php if ( moji_locked() ) : ?><span class="chip">需要密码</span><?php else : ?><span class="chip"><span class="mono"><?php echo esc_html( number_format_i18n( moji_word_count() ) ); ?></span> 字 · <?php echo (int) moji_read_minutes(); ?> 分钟</span><?php endif; ?>
 		</div>
 	</header>
 

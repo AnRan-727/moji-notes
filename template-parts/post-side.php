@@ -34,6 +34,7 @@ if ( count( $moji_rel ) < 3 ) {
 		<dl>
 			<?php if ( $moji_topic ) : ?><div><dt>专题</dt><dd><?php moji_term_chip( $moji_topic ); ?></dd></div><?php endif; ?>
 			<div><dt>成熟度</dt><dd><?php moji_stage_badge(); ?></dd></div>
+			<div><dt>浏览</dt><dd><span class="mono" data-views><?php echo esc_html( moji_views_label() ); ?></span> 次</dd></div>
 			<div><dt>写于</dt><dd class="mono"><?php echo esc_html( get_the_date( 'Y-m-d' ) ); ?></dd></div>
 			<?php if ( ! moji_locked() ) : ?>
 				<div><dt>篇幅</dt><dd><span class="mono"><?php echo esc_html( number_format_i18n( moji_word_count() ) ); ?></span> 字 · 约 <?php echo (int) moji_read_minutes(); ?> 分钟</dd></div>
