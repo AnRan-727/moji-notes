@@ -39,6 +39,7 @@
 		<button type="button" class="icon-btn" id="theme-toggle" aria-label="切换深色模式">
 			<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
 		</button>
+		<?php moji_account_button(); ?>
 		<button type="button" class="icon-btn menu-btn" id="menu-toggle" aria-label="打开菜单" aria-controls="site-nav" aria-expanded="false">
 			<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
 		</button>
